@@ -42,15 +42,11 @@ public class CommandHandler {
         CommandWrapper wrapper = commands.get(args.length + command.getName())
                 .stream()
                 .filter(w -> {
-                    profile.getMessage().debug(w.getName());
                     for (int i = 0; i < w.getSubNames().length; i++) {
                         profile.getMessage().debug(i + " " + w.getSubNames()[i] + " " + args[i]);
-                        if (!w.getSubNames()[i].equalsIgnoreCase(args[i])) {
-                            profile.getMessage().debug("false");
+                        if (!w.getSubNames()[i].equalsIgnoreCase(args[i]))
                             return false;
-                        }
                     }
-                    profile.getMessage().debug("true");
                     return true;
                 })
                 .max(Comparator.comparingInt(w -> w.getSubNames().length))
