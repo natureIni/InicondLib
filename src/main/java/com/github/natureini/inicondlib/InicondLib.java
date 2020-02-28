@@ -33,4 +33,3 @@ public class InicondLib extends JavaPlugin {
     }
 
 }
-
