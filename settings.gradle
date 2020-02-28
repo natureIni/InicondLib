@@ -1,0 +1,3 @@
+rootProject.name = 'InicondLib'
+include 'Test'
+

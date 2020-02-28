@@ -1,0 +1,9 @@
+name: ${name}
+main: com.github.natureini.inicondlib.InicondLib
+version: ${version}
+author: natureIni
+api-version: 1.14
+
+commands:
+  inicondlib:
+    aliases: [il]

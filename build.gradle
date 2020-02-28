@@ -1,0 +1,64 @@
+import java.text.SimpleDateFormat
+
+plugins {
+    id 'java'
+    id 'com.github.johnrengelman.shadow' version '5.2.0'
+}
+
+group 'com.github.natureini.inicondlib'
+version '1.0'
+
+sourceCompatibility = 1.8
+
+jar {
+    setArchivesBaseName(rootProject.name)
+    archiveFileName = "${rootProject.name}-${project.version}.jar"
+}
+
+shadowJar {
+
+    setArchivesBaseName(rootProject.name)
+    archiveVersion = project.version
+    archiveClassifier = ''
+
+    dependencies {
+        exclude '*spigot*'
+    }
+
+    minimize()
+
+}
+
+processResources {
+    from('src/main/resources') {
+        include "plugin.yml"
+        expand(
+                name: rootProject.name,
+                version: project.version
+        )
+    }
+}
+
+repositories {
+
+    mavenCentral()
+
+    maven {
+        url = 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/'
+        content {
+            includeGroup 'org.bukkit'
+            includeGroup 'org.spigotmc'
+        }
+    }
+
+    maven { url = 'https://oss.sonatype.org/content/repositories/snapshots' }
+    mavenLocal()
+
+}
+
+dependencies {
+    implementation 'org.spigotmc:spigot:1.14.4-R0.1-SNAPSHOT'
+    implementation "com.google.guava:guava:28.2-jre"
+}
+
+tasks.withType(AbstractCompile)*.options*.encoding = tasks.withType(GroovyCompile)*.groovyOptions*.encoding = 'UTF-8'
