@@ -69,42 +69,35 @@ public class CommandWrapper {
             if (paramLen == 0)
                 command.invoke(container, sender);
 
+            if (paramLen == 1) {
+
+                Object[] params = new Object[2];
+                params[0] = sender;
+
+                try {
+                    params[1] = castInternally(args[0], command.getParameterTypes()[1]);
+                }
+
+                catch (Exception e) {
+                    return false;
+                }
+
+                command.invoke(container, params);
+
+            }
+
+            // 引数が 2 以上なら一般に処理
             else {
 
                 Class<?>[] types = command.getParameterTypes();
 
-                Object[] param = new Object[args.length + 1];
-                param[0] = sender;
+                Object[] params = new Object[args.length + 1];
+                params[0] = sender;
 
                 for (int i = 0; i < args.length; i++) {
                     // キャストして配列に入れる
                     try {
-                        switch (types[i + 1].getSimpleName()) {
-                            case "boolean":
-                                param[i + 1] = Boolean.parseBoolean(args[i]);
-                                break;
-                            case "byte":
-                                param[i + 1] = Byte.parseByte(args[i]);
-                                break;
-                            case "short":
-                                param[i + 1] = Short.parseShort(args[i]);
-                                break;
-                            case "int":
-                                param[i + 1] = Integer.parseInt(args[i]);
-                                break;
-                            case "long":
-                                param[i + 1] = Long.parseLong(args[i]);
-                                break;
-                            case "float":
-                                param[i + 1] = Float.parseFloat(args[i]);
-                                break;
-                            case "double":
-                                param[i + 1] = Double.parseDouble(args[i]);
-                                break;
-                            default:
-                                param[i + 1] = args[i];
-                                break;
-                        }
+                        params[i + 1] = castInternally(args[i], types[i + 1]);
                     }
 
                     catch (Exception e) {
@@ -112,7 +105,7 @@ public class CommandWrapper {
                     }
                 }
 
-                command.invoke(container, param);
+                command.invoke(container, params);
 
             }
 
@@ -131,6 +124,27 @@ public class CommandWrapper {
 
         return false;
 
+    }
+
+    private static Object castInternally(String string, Class<?> type) throws Exception {
+        switch (type.getSimpleName()) {
+            case "boolean":
+                return Boolean.parseBoolean(string);
+            case "byte":
+                return Byte.parseByte(string);
+            case "short":
+                return Short.parseShort(string);
+            case "int":
+                return Integer.parseInt(string);
+            case "long":
+                return Long.parseLong(string);
+            case "float":
+                return Float.parseFloat(string);
+            case "double":
+                return Double.parseDouble(string);
+            default:
+                return string;
+        }
     }
 
 }
