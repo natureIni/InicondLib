@@ -15,7 +15,7 @@ public class InicondLib extends JavaPlugin {
     @Override
     public void onEnable() {
         instance = this;
-        profile = new InicondLibProfile("NIBLib");
+        profile = new InicondLibProfile("InicondLib");
         handler = new CommandHandler(profile, new InicondLibCommand());
     }
 

@@ -7,7 +7,7 @@ import org.bukkit.command.CommandSender;
 public class InicondLibCommand implements CommandContainer {
 
     @CommandOption(permission = "info")
-    public void niblib(CommandSender sender) {
+    public void inicondlib(CommandSender sender) {
         sender.sendMessage(InicondLib.getInstance().getDescription().getVersion());
     }
 
