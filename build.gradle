@@ -6,7 +6,7 @@ plugins {
 }
 
 group 'com.github.natureini.inicondlib'
-version '1.0'
+version '1.14.4-' + new SimpleDateFormat('yyyyMMdd').format(new Date())
 
 sourceCompatibility = 1.8
 
