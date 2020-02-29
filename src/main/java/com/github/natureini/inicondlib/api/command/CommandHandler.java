@@ -49,7 +49,7 @@ public class CommandHandler {
                     return true;
                 })
                 .max(Comparator.comparingInt(w -> w.getSubNames().length))
-                .get();
+                .orElse(null);
 
         if (!profile.getMessage().checkWithMessage(sender, "command.unknown", wrapper != null)
                 || !profile.getMessage().checkWithMessage(sender, "command.permission-denied", profile.hasPermission(sender, wrapper.getPermission()))) {
