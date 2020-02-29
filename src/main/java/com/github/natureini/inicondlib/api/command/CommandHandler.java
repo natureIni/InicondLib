@@ -58,8 +58,7 @@ public class CommandHandler {
 
         try {
             wrapper.perform(profile, sender, wrapper.getParamLen() == args.length ? args : Arrays.copyOfRange(args, wrapper.getSubNames().length, args.length));
-                profile.getMessage().sendConfigMessage(sender, LogLevel.ERROR, "command.unknown");
-                return false;
+            return true;
         }
 
         catch (IllegalAccessException e) {
