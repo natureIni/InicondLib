@@ -43,7 +43,6 @@ public class CommandHandler {
                 .stream()
                 .filter(w -> {
                     for (int i = 0; i < w.getSubNames().length; i++) {
-                        profile.getMessage().debug(i + " " + w.getSubNames()[i] + " " + args[i]);
                         if (!w.getSubNames()[i].equalsIgnoreCase(args[i]))
                             return false;
                     }

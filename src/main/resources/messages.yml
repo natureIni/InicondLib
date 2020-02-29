@@ -1,4 +1,4 @@
 command:
-  unknown: "そのコマンドは存在しないか、引数が不正です"
+  unknown: "指定されたコマンドは存在しないか、引数が不正です"
   playerOnly: "プレイヤー専用コマンドです"
   permission-denied: "このコマンドを実行する権限がありません"
