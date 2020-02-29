@@ -86,7 +86,7 @@ public class CommandWrapper {
 
             }
 
-            // 引数が 2 以上なら一般に処理
+            // 引数の個数が 2 以上なら一般に処理
             else {
 
                 Class<?>[] types = command.getParameterTypes();
@@ -95,11 +95,9 @@ public class CommandWrapper {
                 params[0] = sender;
 
                 for (int i = 0; i < args.length; i++) {
-                    // キャストして配列に入れる
                     try {
                         params[i + 1] = castInternally(args[i], types[i + 1]);
                     }
-
                     catch (Exception e) {
                         return false;
                     }
