@@ -58,7 +58,6 @@ public class CommandHandler {
 
         try {
             wrapper.perform(profile, sender, wrapper.getParamLen() == args.length ? args : Arrays.copyOfRange(args, wrapper.getSubNames().length, args.length));
-            return true;
         }
 
         catch (IllegalAccessException e) {
