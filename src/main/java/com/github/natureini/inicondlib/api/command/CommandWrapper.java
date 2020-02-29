@@ -1,5 +1,7 @@
 package com.github.natureini.inicondlib.api.command;
 
+import com.github.natureini.inicondlib.api.InicondLibProfile;
+import io.netty.handler.logging.LogLevel;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -60,9 +62,11 @@ public class CommandWrapper {
      * コマンドを実行する
      * @param sender 実行者
      * @param args コマンドの引数 (サブネームは含まない)
-     * @return 引数の型が誤っているか、メソッド呼出そのものに失敗した場合 false
      */
-    public boolean perform(CommandSender sender, String[] args) throws IllegalAccessException {
+    public void perform(InicondLibProfile profile, CommandSender sender, String[] args) throws IllegalAccessException {
+
+        if (profile.getMessage().checkWithMessage(sender, "command.playerOnly", !playerOnly || sender instanceof Player))
+            return;
 
         try {
 
@@ -79,7 +83,8 @@ public class CommandWrapper {
                 }
 
                 catch (Exception e) {
-                    return false;
+                    profile.getMessage().sendConfigMessage(sender, LogLevel.ERROR, "command.unknown");
+                    return;
                 }
 
                 command.invoke(container, params);
@@ -99,15 +104,14 @@ public class CommandWrapper {
                         params[i + 1] = castInternally(args[i], types[i + 1]);
                     }
                     catch (Exception e) {
-                        return false;
+                        profile.getMessage().sendConfigMessage(sender, LogLevel.ERROR, "command.unknown");
+                        return;
                     }
                 }
 
                 command.invoke(container, params);
 
             }
-
-            return true;
 
         }
 
@@ -119,8 +123,6 @@ public class CommandWrapper {
             System.out.println(e);
             System.out.println(e.getTargetException());
         }
-
-        return false;
 
     }
 

@@ -53,16 +53,14 @@ public class CommandHandler {
                 .get();
 
         if (!profile.getMessage().checkWithMessage(sender, "command.unknown", wrapper != null)
-                || !profile.getMessage().checkWithMessage(sender, "command.playerOnly", !wrapper.isPlayerOnly() || sender instanceof Player)
                 || !profile.getMessage().checkWithMessage(sender, "command.permission-denied", profile.hasPermission(sender, wrapper.getPermission()))) {
             return false;
         }
 
         try {
-            if (!wrapper.perform(sender, wrapper.getParamLen() == args.length ? args : Arrays.copyOfRange(args, wrapper.getSubNames().length, args.length))) {
+            wrapper.perform(profile, sender, wrapper.getParamLen() == args.length ? args : Arrays.copyOfRange(args, wrapper.getSubNames().length, args.length));
                 profile.getMessage().sendConfigMessage(sender, LogLevel.ERROR, "command.unknown");
                 return false;
-            }
         }
 
         catch (IllegalAccessException e) {
