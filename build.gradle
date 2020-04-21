@@ -58,7 +58,6 @@ repositories {
 
 dependencies {
     implementation 'org.spigotmc:spigot:1.14.4-R0.1-SNAPSHOT'
-    implementation "com.google.guava:guava:28.2-jre"
 }
 
 tasks.withType(AbstractCompile)*.options*.encoding = tasks.withType(GroovyCompile)*.groovyOptions*.encoding = 'UTF-8'
